@@ -8,17 +8,18 @@
 math_grades = {"John": 85, "Emily": 92, "Michael": 78, "Jessica": 95}
 science_grades = {"John": 90, "Emily": 88, "Michael": 92, "Jessica": 87}
 
-# Inițializare dicționar pentru stocarea mediilor
-averages = {}
+# Inițializare dicționar pentru stocarea mediei notelor
+average_grades = {}
 
-# Parcurgerea fiecărui elev și calcularea mediei notelor
-for student in math_grades:
-    math_grade = math_grades.get(student, 0)
-    science_grade = science_grades.get(student, 0)
-    average_grade = (math_grade + science_grade) / 2
-    averages[student] = average_grade
+# Parcurgerea cheilor dintr-unul dintre dicționare (de preferat cel mai mare)
+for student in math_grades.keys():
+    # Verificăm dacă elevul se află în ambele dicționare
+    if student in science_grades:
+        # Calcularea mediei notelor pentru elev
+        average = (math_grades[student] + science_grades[student]) / 2
+        # Adăugarea mediei în dicționarul mediei notelor
+        average_grades[student] = average
 
-# Afișarea mediilor fiecărui elev
-print("Mediile elevilor:")
-for student, average in averages.items():
-    print(student + ": " + str(average))
+# Afișarea dicționarului cu media notelor pentru fiecare elev
+print("Dicționarul cu media notelor elevilor:")
+print(average_grades)
