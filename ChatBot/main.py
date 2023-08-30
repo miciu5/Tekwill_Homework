@@ -1,3 +1,5 @@
+# Importarea modulelor și variabilelor:
+
 import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -15,19 +17,22 @@ bot = Bot(token=API_TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
+# Inițializarea tastaturii principale:
+
 main_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
 main_keyboard.add(types.KeyboardButton("1 - Pentru a raporta un caz de asigurare"))
 main_keyboard.add(types.KeyboardButton("2 - Pentru a anula o polița de asigurare"))
 main_keyboard.add(types.KeyboardButton("3 - Pentru a introduce modificări în poliță de asigurare"))
 main_keyboard.add(types.KeyboardButton("4 - Pentru perfectarea unei polițe de asigurare"))
 
+# Adaugă butoane pentru diferite tipuri de evenimente
 event_report_options_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
 event_report_options_keyboard.add(types.KeyboardButton("11 - CASCO"))
 event_report_options_keyboard.add(types.KeyboardButton("12 - AORC"))
 event_report_options_keyboard.add(types.KeyboardButton("13 - Asigurarea bunurilor"))
 event_report_options_keyboard.add(types.KeyboardButton("14 - Asigurarea medicală peste hotare"))
 
-
+# Adaugă butoane pentru sub-opțiunile CASCO
 casco_sub_options_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
 casco_sub_options_keyboard.add(types.KeyboardButton("111 - Sunt o persoană fizică, doresc să înregistrez un caz de asigurare și să aflu lista documentelor necesare"))
 casco_sub_options_keyboard.add(types.KeyboardButton("112 - Sunt o persoană juridică, doresc să înregistrez un caz de asigurare și să aflu lista documentelor necesare"))
@@ -36,7 +41,7 @@ casco_sub_options_keyboard.add(types.KeyboardButton("114 - La ce stadiu de proce
 casco_sub_options_keyboard.add(types.KeyboardButton("115 - Acțiuni în cazul unui eveniment asigurat"))
 casco_sub_options_keyboard.add(types.KeyboardButton("00 - La începutul meniului"))
 
-#
+# Adaugă butoane pentru sub-sub-opțiunile CASCO
 sub_sub_options_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
 sub_sub_options_keyboard.add(types.KeyboardButton("1111 - ACCIDENT RUTIER"))
 sub_sub_options_keyboard.add(types.KeyboardButton("1112 - Avariere într-o parcare, calamități naturale, incendiu"))
@@ -49,6 +54,9 @@ sub_sub_sub_options_keyboard.add(types.KeyboardButton("00 - La începutul meniul
 back_to_start_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
 back_to_start_keyboard.add(types.KeyboardButton("00 - La începutul meniului"))
 
+
+# Definirea handlerelor pentru comenzile și opțiunile selectate de utilizator
+# Afisarea mesajelor corespunzătoare utilizatorului în funcție de alegere
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
@@ -123,6 +131,9 @@ async def handle_sub_sub_menu_selection(message: types.Message, sub_sub_sub_opti
 @dp.message_handler(lambda message: message.text == "00 - La începutul meniului")
 async def back_to_start(message: types.Message):
     await start(message)
+
+# Pornirea executării botului:
+
 if __name__ == '__main__':
     from aiogram import executor
 
